@@ -3,35 +3,68 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Store Data</title>
+    <title>Form Submission</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+        input[type="text"], input[type="email"], textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        input[type="submit"] {
+            background-color: #28a745;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        input[type="submit"]:hover {
+            background-color: #218838;
+        }
+    </style>
 </head>
 <body>
-    <h1>Store Data in File</h1>
-    <form id="dataForm">
-        <label for="userData">Enter your data:</label><br>
-        <textarea id="userData" rows="4" cols="50"></textarea><br><br>
-        <button type="button" onclick="saveToFile()">Save to File</button>
-    </form>
+    <div class="container">
+        <h2>Submit Your Information</h2>
+        <form action="/submit" method="POST">
+            <label for="fname">First Name:</label>
+            <input type="text" id="fname" name="fname" required>
 
-    <script>
-        function saveToFile() {
-            const data = document.getElementById('userData').value;
-            fetch('/append', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ data: data }),
-            })
-            .then(response => response.text())
-            .then(result => {
-                alert(result);
-                document.getElementById('userData').value = ''; // Clear the textarea
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            });
-        }
-    </script>
+            <label for="lname">Last Name:</label>
+            <input type="text" id="lname" name="lname" required>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="message">Message:</label>
+            <textarea id="message" name="message" rows="5" required></textarea>
+
+            <input type="submit" value="Submit">
+        </form>
+    </div>
 </body>
 </html>
