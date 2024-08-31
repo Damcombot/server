@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Store Data</title>
+</head>
+<body>
+    <h1>Store Data in File</h1>
+    <form id="dataForm">
+        <label for="userData">Enter your data:</label><br>
+        <textarea id="userData" rows="4" cols="50"></textarea><br><br>
+        <button type="button" onclick="saveToFile()">Save to File</button>
+    </form>
+
+    <script>
+        function saveToFile() {
+            const data = document.getElementById('userData').value;
+            fetch('/append', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ data: data }),
+            })
+            .then(response => response.text())
+            .then(result => {
+                alert(result);
+                document.getElementById('userData').value = ''; // Clear the textarea
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+    </script>
+</body>
+</html>
